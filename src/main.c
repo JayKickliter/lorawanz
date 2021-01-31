@@ -58,12 +58,16 @@ main(void) {
         }
         join_attempts = 0;
 
+        int uplink_ctr = 0;
         while (1) {
-            LOG_INF("Sending data...");
-            ret = lorawan_send(2,
-                               data,
-                               sizeof(data),
-                               0 /* LORAWAN_MSG_CONFIRMED */);
+            k_sleep(DELAY);
+            /* Request ACK every 10 uplinks */
+            int uplink_flags = uplink_ctr % 10 == 0 ? LORAWAN_MSG_CONFIRMED : 0;
+            uplink_ctr += 1;
+            LOG_INF("Sending uplink %d with flags 0x%02X...",
+                    uplink_ctr,
+                    uplink_flags);
+            ret = lorawan_send(2, data, sizeof(data), uplink_flags);
 
             /*
              * Note: The stack may return -EAGAIN if the provided data
@@ -73,18 +77,15 @@ main(void) {
              */
             if (ret == -EAGAIN) {
                 LOG_WRN("lorawan_send failed: %d. Continuing...", ret);
-                k_sleep(DELAY);
                 continue;
             }
 
             if (ret < 0) {
                 LOG_ERR("lorawan_send failed: %d", ret);
-                k_sleep(DELAY);
                 continue;
             }
 
             LOG_INF("Data sent!");
-            k_sleep(DELAY);
         }
         k_sleep(DELAY);
     }
