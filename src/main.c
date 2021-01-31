@@ -47,6 +47,8 @@ main(void) {
     join_cfg.otaa.app_key  = LORAWAN_APP_KEY;
     join_cfg.otaa.nwk_key  = LORAWAN_APP_KEY;
 
+    lorawan_set_datarate(LORAWAN_DR_2);
+
     int join_attempts = 0;
     while (1) {
         LOG_INF("Joining network over OTAA, attempt %d", join_attempts);
