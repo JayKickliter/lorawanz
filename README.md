@@ -24,8 +24,8 @@ this README, but at least they have it very well [documented].
 ## Device personality
 
 By default, this application uses zeros for DevEUI, JoinEUI, and
-AppKey. In order to talk to your LoRaWAN network server, create a file
-in `src/` named `personality.c` with the following structure:
+AppKey. In order to talk to your LoRaWAN network server, edit
+`src/personality.c` like so:
 
 ```c
 #include "personality.h"
@@ -42,7 +42,7 @@ console, expand them and copy the MSB representation for each.
 ## Known compatible eval boards
 
 Zephyr's driver model makes applications extremely portable, so this
-list is not comprehensive. 
+list is not comprehensive.
 
 | Board               | Command line identifier |
 |---------------------|-------------------------|

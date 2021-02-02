@@ -94,9 +94,3 @@ main(void) {
 
     LOG_ERR("This application should not exit");
 }
-
-
-/* Override these defaults by defining them in personality.c */
-__attribute__((weak)) uint8_t LORAWAN_DEV_EUI[]  = {0};
-__attribute__((weak)) uint8_t LORAWAN_JOIN_EUI[] = {0};
-__attribute__((weak)) uint8_t LORAWAN_APP_KEY[]  = {0};
